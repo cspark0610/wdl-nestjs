@@ -1,0 +1,86 @@
+### ENDPOINT TO FETCH X RANDOMS WORDS of 5 letters length from external api 
+### https://random-word-api.herokuapp.com/word?length=5&number=
+GET http://localhost:3000/save-file
+
+### ENDPOINT TO INITIALIZE WORDLE GAME
+GET http://localhost:3000/start
+
+### RESPONSE
+# {
+#   "number": 4,
+#   "token": "f84e14d2-3bbd-4d55-aa3b-ed78b3156720"
+# }
+
+### RETURNS SECRET WORD CHOSEN RANDOMLY
+GET http://localhost:3000/secret-word/55fb7ddf-2b8f-4b12-8cd3-abf5d71239e2
+
+# RESPONSE EX.: posts
+###
+
+### ENDPOINT TO PLAY WORDLE
+GET http://localhost:3000/55fb7ddf-2b8f-4b12-8cd3-abf5d71239e2/guess/posts
+### 
+# value = 1, "Correct" letter
+# value = 2, "Present" letter
+# value = 3, "Absent"  letter 
+
+### RESPONSE, WHEN THE GUESSED WORD IS WRONG AND COUNTER IS LESS THAN 5
+# {
+#   "statusGame": "Try-Again",
+#   "intent": "pingo",
+#   "statusLetter": [
+#     {
+#       "letter": "p",
+#       "value": 1
+#     },
+#     {
+#       "letter": "i",
+#       "value": 3
+#     },
+#     {
+#       "letter": "n",
+#       "value": 3
+#     },
+#     {
+#       "letter": "g",
+#       "value": 3
+#     },
+#     {
+#       "letter": "o",
+#       "value": 2
+#     }
+#   ],
+#   "counter": 2
+# }
+
+### RESPONSE WHEN SUCCESSFULLY GUESSED AND COUNTER IS LESS THAN 5
+# {
+#   "statusGame": "Win",
+#   "intent": "posts",
+#   "statusLetter": [
+#     {
+#       "letter": "p",
+#       "value": 1
+#     },
+#     {
+#       "letter": "o",
+#       "value": 1
+#     },
+#     {
+#       "letter": "s",
+#       "value": 1
+#     },
+#     {
+#       "letter": "t",
+#       "value": 1
+#     },
+#     {
+#       "letter": "s",
+#       "value": 1
+#     }
+#   ],
+#   "counter": 3,
+#   "secretWord": "posts"
+# }
+
+
