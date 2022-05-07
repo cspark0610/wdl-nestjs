@@ -1,5 +1,8 @@
+import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
 import { GameService } from 'src/game/game.service';
+import { UserRoles } from 'src/users/schemas/user.schema';
+import { UsersService } from 'src/users/users.service';
 import { FileService } from 'src/utils/fileService.service';
 import { WordleEvaluatorService } from 'src/utils/wordle-evaluator.service';
 
@@ -27,9 +30,27 @@ describe('GameService', () => {
   const FileServiceMock = {
     saveFile: jest.fn().mockResolvedValue(mockDictionary),
   };
+  const mockUser = {
+    _id: '61cd5ekcsv66945x1wc',
+    email: 'user1@mail.com',
+    name: 'namefake',
+    role: UserRoles.USER,
+    gamesTokensWon: ['ecd0f665-1540-4775-b409-19e5dc08bb66'],
+    gamesTokensPlayed: [],
+  };
+  const updatedMockUser = {
+    ...mockUser,
+    gamesTokensWon: ['ecd0f665-1540-4775-b409-19e5dc08bb66'],
+  };
+
+  const UsersServiceMock = {
+    findById: jest.fn().mockResolvedValue(mockUser),
+    updateById: jest.fn().mockResolvedValue(updatedMockUser),
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
       providers: [
         GameService,
         {
@@ -39,6 +60,10 @@ describe('GameService', () => {
         {
           provide: FileService,
           useValue: FileServiceMock,
+        },
+        {
+          provide: UsersService,
+          useValue: UsersServiceMock,
         },
       ],
     }).compile();
@@ -107,6 +132,16 @@ describe('GameService', () => {
       const result = service.guess(GameMock.token, guess);
       expect(service.guess).toHaveBeenCalledWith(GameMock.token, guess);
       expect(result).toEqual(IGuessMock);
+    });
+  });
+
+  describe('setGamesTokensWon', () => {
+    it('should call findById and updateById method', async () => {
+      UsersServiceMock.findById();
+      UsersServiceMock.updateById();
+      await service.setGamesTokensWon(mockUser as any, GameMock.token);
+      expect(UsersServiceMock.findById).toHaveBeenCalled();
+      expect(UsersServiceMock.updateById).toHaveBeenCalled();
     });
   });
 });

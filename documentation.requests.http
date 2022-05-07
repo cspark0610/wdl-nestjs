@@ -1,24 +1,70 @@
-### ENDPOINT TO FETCH X RANDOMS WORDS of 5 letters length from external api 
-### https://random-word-api.herokuapp.com/word?length=5&number=
-GET http://localhost:3000/save-file
+### ENDPOINT TO SIGNUP
+POST http://localhost:3000/auth/signUp
+Content-Type: application/json
 
-### ENDPOINT TO INITIALIZE WORDLE GAME
-GET http://localhost:3000/start
+{
+  "name": "pepe",
+  "email": "pepe@gmail.com",
+  "password": "123456",
+  "role": "USER"
+}
+### RESPONSE
+# {
+#   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzZlYWYyY2QxYjRlMDQxNTcyNTI2MCIsImlhdCI6MTY1MTk2MDU2MiwiZXhwIjoxNjUyNTY1MzYyfQ.Sor1SafJ0TPvd3SqDISoAnQ5atcsfG7KaW09TQhrpXU"
+# }
+
+### ENDPOINT TO LOGIN
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "parkcarlosseb@gmail.com",
+  "password": "123456"
+}
+
+### 'ME' PROFILE ENDPOINT, first must be logged in 
+GET http://localhost:3000/auth/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzZlYWYyY2QxYjRlMDQxNTcyNTI2MCIsImlhdCI6MTY1MTk2MDgxMSwiZXhwIjoxNjUyNTY1NjExfQ.UYs7UGSZz7N--HVgfEL5lPX2AJOO0QzzE_72Oi1IW4s
 
 ### RESPONSE
 # {
-#   "number": 4,
-#   "token": "f84e14d2-3bbd-4d55-aa3b-ed78b3156720"
+#   "_id": "6276eaf2cd1b4e0415725260",
+#   "name": "CARLOS",
+#   "email": "parkcarlosseb@gmail.com",
+#   "role": "USER",
+#   "gamesTokensWon": [],
+#   "gamesTokensPlayed": [],
+#   "__v": 0
+# }
+
+### ENDPOINT TO FETCH X RANDOMS WORDS of 5 letters length from external api , by roles USER or ADMIN
+### https://random-word-api.herokuapp.com/word?length=5&number=
+GET http://localhost:3000/save-file
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzZlYWYyY2QxYjRlMDQxNTcyNTI2MCIsImlhdCI6MTY1MTk2MDgxMSwiZXhwIjoxNjUyNTY1NjExfQ.UYs7UGSZz7N--HVgfEL5lPX2AJOO0QzzE_72Oi1IW4s
+
+
+### ENDPOINT TO INITIALIZE WORDLE GAME
+GET http://localhost:3000/start
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzZlYWYyY2QxYjRlMDQxNTcyNTI2MCIsImlhdCI6MTY1MTk2MDgxMSwiZXhwIjoxNjUyNTY1NjExfQ.UYs7UGSZz7N--HVgfEL5lPX2AJOO0QzzE_72Oi1IW4s
+
+### RESPONSE
+# {
+#   "number": 971,
+#   "token": "66751ca0-0a6f-4e54-bf7f-1e30cde48fe5"
 # }
 
 ### RETURNS SECRET WORD CHOSEN RANDOMLY
-GET http://localhost:3000/secret-word/05e85f91-a753-4d49-9ea6-82462b4cce2e
+GET http://localhost:3000/secret-word/a17cc0d6-f45a-41a4-add8-5ff824b5c7f4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzZlYWYyY2QxYjRlMDQxNTcyNTI2MCIsImlhdCI6MTY1MTk2MDgxMSwiZXhwIjoxNjUyNTY1NjExfQ.UYs7UGSZz7N--HVgfEL5lPX2AJOO0QzzE_72Oi1IW4s
 
-# RESPONSE EX.: spunk
+# RESPONSE EX.: agley
 ###
 
 ### ENDPOINT TO PLAY WORDLE
-GET http://localhost:3000/05e85f91-a753-4d49-9ea6-82462b4cce2e/guess/spunk
+GET http://localhost:3000/a17cc0d6-f45a-41a4-add8-5ff824b5c7f4/guess/agley
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzZlYWYyY2QxYjRlMDQxNTcyNTI2MCIsImlhdCI6MTY1MTk2MDgxMSwiZXhwIjoxNjUyNTY1NjExfQ.UYs7UGSZz7N--HVgfEL5lPX2AJOO0QzzE_72Oi1IW4s
+
 ### 
 # value = 1, "Correct" letter
 # value = 2, "Present" letter
@@ -84,4 +130,43 @@ GET http://localhost:3000/05e85f91-a753-4d49-9ea6-82462b4cce2e/guess/spunk
 #   "gamesWon": 2
 # }
 
+### ENDPOINT THAT RETURNS MOST WINNERS USERS
+GET http://localhost:3000/most-winners
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzZlYWYyY2QxYjRlMDQxNTcyNTI2MCIsImlhdCI6MTY1MTk2MDgxMSwiZXhwIjoxNjUyNTY1NjExfQ.UYs7UGSZz7N--HVgfEL5lPX2AJOO0QzzE_72Oi1IW4s
 
+### RESPONSE
+# [
+#   {
+#     "_id": "6276eaf2cd1b4e0415725260",
+#     "name": "CARLOS",
+#     "email": "parkcarlosseb@gmail.com",
+#     "role": "USER",
+#     "gamesTokensWon": [
+#       "a17cc0d6-f45a-41a4-add8-5ff824b5c7f4",
+#       "a17cc0d6-f45a-41a4-add8-5ff824b5c7f",
+#       "a17cc0d6-f45a-41a4-add8-5ff824b5c7f",
+#       "a17cc0d6-f45a-41a4-add8-5ff824b5c7f",
+#       "a17cc0d6-f45a-41a4-add8-5ff824b5c7f",
+#       "a17cc0d6-f45a-41a4-add8-5ff824b5c7f"
+#     ],
+#     "gamesTokensPlayed": [
+#       "a17cc0d6-f45a-41a4-add8-5ff824b5c7f4",
+#       "a17cc0d6-f45a-41a4-add8-5ff824b5c7f",
+#       "a17cc0d6-f45a-41a4-add8-5ff824b5c7f",
+#       "a17cc0d6-f45a-41a4-add8-5ff824b5c7f",
+#       "a17cc0d6-f45a-41a4-add8-5ff824b5c7f",
+#       "a17cc0d6-f45a-41a4-add8-5ff824b5c7f"
+# ],
+#     "__v": 0
+#   }
+# ]
+
+### GET USER STATS NUMBER OF PLAYED GAMES AND WON GAMES
+GET http://localhost:3000/user-stats
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNzZlYWYyY2QxYjRlMDQxNTcyNTI2MCIsImlhdCI6MTY1MTk2NDg3MiwiZXhwIjoxNjUyNTY5NjcyfQ.oqAwOR_IGKV4UsVsrFAwtJ2YArxII2Xr8pFJQscdUsU
+
+# RESPONSE
+# {
+#   "gamesWon": 6,
+#   "gamesPlayed": 6
+# }

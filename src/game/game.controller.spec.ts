@@ -3,6 +3,7 @@ import { GameController } from 'src/game/game.controller';
 import { GameService } from 'src/game/game.service';
 import { GameStates } from 'src/common/game-states.enum';
 import { FileService } from 'src/utils/fileService.service';
+import { User, UserRoles } from 'src/users/schemas/user.schema';
 
 describe('GameController', () => {
   let controller: GameController;
@@ -29,6 +30,14 @@ describe('GameController', () => {
     getWord: jest.fn(),
     guess: jest.fn(),
     counter: 1,
+    setGamesTokensPlayed: jest.fn(),
+    setGamesTokensWon: jest.fn(),
+  };
+  const mockUser = {
+    _id: '61cd5ekcsv66945x1wc',
+    email: 'user1@mail.com',
+    name: 'namefake',
+    role: UserRoles.USER,
   };
   const FileServiceMock = {};
 
@@ -84,10 +93,15 @@ describe('GameController', () => {
         statusLetter: GuessResponseMock.statusLetter,
         secretWord: secret,
         counter: 1,
+        gamesWon: 1,
       };
       GameServiceMock.guess.mockReturnValue(GuessResponseMock);
       GameServiceMock.counter;
-      const result = controller.guess(StartGameMock.token, guess);
+      const result = controller.guess(
+        StartGameMock.token,
+        guess,
+        mockUser as User,
+      );
       expect(result).toEqual(GameResponseWinMock);
     });
 
@@ -111,7 +125,11 @@ describe('GameController', () => {
       };
       GameServiceMock.guess.mockReturnValue(GuessResponseMock);
       GameServiceMock.counter;
-      const result = controller.guess(StartGameMock.token, guess);
+      const result = controller.guess(
+        StartGameMock.token,
+        guess,
+        mockUser as User,
+      );
       expect(result).toEqual(GameResponseTryAgainMock);
     });
   });

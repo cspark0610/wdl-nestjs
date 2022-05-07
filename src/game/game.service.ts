@@ -8,6 +8,8 @@ import {
 import { StartGame } from 'src/model/start-game.model';
 import { StatusLetter } from 'src/game/game.controller';
 import { FileService } from 'src/utils/fileService.service';
+import { UsersService } from '../users/users.service';
+import { User } from 'src/users/schemas/user.schema';
 
 export interface IGame {
   token: string;
@@ -22,6 +24,7 @@ export class GameService {
   constructor(
     private readonly wordleEvaluatorService: WordleEvaluatorService,
     private readonly fileService: FileService,
+    private readonly usersService: UsersService,
   ) {
     this.writeNewWordDictionary();
     this.allWords = words.answers;
@@ -68,6 +71,30 @@ export class GameService {
         this.wordleEvaluatorService.compareAndSetState(guess, secretWord);
       return this.formatter(wordleServiceResult);
     }
+  }
+
+  async setGamesTokensWon(user: User, token: string): Promise<void> {
+    const foundUser: User = await this.usersService.findById(user._id);
+    const updateWonToken: string[] = [...foundUser.gamesTokensWon, token];
+    await this.usersService.updateById(user._id, {
+      gamesTokensWon: updateWonToken,
+    });
+  }
+
+  async setGamesTokensPlayed(user: User, token: string): Promise<void> {
+    const foundUser: User = await this.usersService.findById(user._id);
+    const updatePlayedToken: string[] = [...foundUser.gamesTokensPlayed, token];
+    await this.usersService.updateById(user._id, {
+      gamesTokensPlayed: updatePlayedToken,
+    });
+  }
+
+  async findMostWinnersUsers(): Promise<User[]> {
+    return this.usersService.findMostWinnersUsers();
+  }
+
+  async findUserGamesWinAndGamesPlayed(user: User) {
+    return this.usersService.findUserGamesWinAndGamesPlayed(user._id);
   }
 
   private writeNewWordDictionary(): void {
