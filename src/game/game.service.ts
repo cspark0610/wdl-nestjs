@@ -7,6 +7,7 @@ import {
 } from 'src/utils/wordle-evaluator.service';
 import { StartGame } from 'src/model/start-game.model';
 import { StatusLetter } from 'src/game/game.controller';
+import { FileService } from 'src/utils/fileService.service';
 
 export interface IGame {
   token: string;
@@ -18,7 +19,11 @@ export class GameService {
   private readonly games = new Map<string, IGame>();
   public counter = 0;
   private readonly allWords: string[];
-  constructor(private readonly wordleEvaluatorService: WordleEvaluatorService) {
+  constructor(
+    private readonly wordleEvaluatorService: WordleEvaluatorService,
+    private readonly fileService: FileService,
+  ) {
+    this.writeNewWordDictionary();
     this.allWords = words.answers;
   }
 
@@ -63,6 +68,13 @@ export class GameService {
         this.wordleEvaluatorService.compareAndSetState(guess, secretWord);
       return this.formatter(wordleServiceResult);
     }
+  }
+
+  private writeNewWordDictionary(): void {
+    setInterval(async () => {
+      console.log('new axios request executed');
+      await this.fileService.saveFile();
+    }, 1000 * 60 * 5);
   }
 
   private formatter(obj: ICompareAndSetState): {

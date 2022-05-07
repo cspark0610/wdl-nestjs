@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GameService } from 'src/game/game.service';
+import { FileService } from 'src/utils/fileService.service';
 import { WordleEvaluatorService } from 'src/utils/wordle-evaluator.service';
 
 describe('GameService', () => {
@@ -19,6 +20,13 @@ describe('GameService', () => {
     number: Math.floor(Math.random() * 1500) + 1,
     word: 'test',
   };
+  const mockDictionary = {
+    answers: ['abcde'],
+  };
+
+  const FileServiceMock = {
+    saveFile: jest.fn().mockResolvedValue(mockDictionary),
+  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -27,6 +35,10 @@ describe('GameService', () => {
         {
           provide: WordleEvaluatorService,
           useValue: WordleEvaluatorServiceMock,
+        },
+        {
+          provide: FileService,
+          useValue: FileServiceMock,
         },
       ],
     }).compile();
