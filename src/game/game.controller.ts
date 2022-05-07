@@ -15,10 +15,12 @@ interface GameResponse {
   statusLetter: StatusLetter[];
   counter: number;
   secretWord?: string;
+  gamesWon?: number;
 }
 
 @Controller()
 export class GameController {
+  counterGamesWon = 0;
   constructor(
     private readonly gameService: GameService,
     private readonly fileService: FileService,
@@ -70,12 +72,14 @@ export class GameController {
         response.statusLetter.every(state => state.value == States.Correct) &&
         this.gameService.counter <= 5
       ) {
+        this.counterGamesWon++;
         return {
           statusGame: GameStates.Win,
           intent: word,
           statusLetter: response.statusLetter,
           counter: this.gameService.counter,
           secretWord: response.intent,
+          gamesWon: this.counterGamesWon,
         };
       }
       return {

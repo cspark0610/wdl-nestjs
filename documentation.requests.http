@@ -12,13 +12,13 @@ GET http://localhost:3000/start
 # }
 
 ### RETURNS SECRET WORD CHOSEN RANDOMLY
-GET http://localhost:3000/secret-word/55fb7ddf-2b8f-4b12-8cd3-abf5d71239e2
+GET http://localhost:3000/secret-word/05e85f91-a753-4d49-9ea6-82462b4cce2e
 
-# RESPONSE EX.: posts
+# RESPONSE EX.: spunk
 ###
 
 ### ENDPOINT TO PLAY WORDLE
-GET http://localhost:3000/55fb7ddf-2b8f-4b12-8cd3-abf5d71239e2/guess/posts
+GET http://localhost:3000/05e85f91-a753-4d49-9ea6-82462b4cce2e/guess/spunk
 ### 
 # value = 1, "Correct" letter
 # value = 2, "Present" letter
@@ -56,31 +56,32 @@ GET http://localhost:3000/55fb7ddf-2b8f-4b12-8cd3-abf5d71239e2/guess/posts
 ### RESPONSE WHEN SUCCESSFULLY GUESSED AND COUNTER IS LESS THAN 5
 # {
 #   "statusGame": "Win",
-#   "intent": "posts",
+#   "intent": "spunk",
 #   "statusLetter": [
+#     {
+#       "letter": "s",
+#       "value": 1
+#     },
 #     {
 #       "letter": "p",
 #       "value": 1
 #     },
 #     {
-#       "letter": "o",
+#       "letter": "u",
 #       "value": 1
 #     },
 #     {
-#       "letter": "s",
+#       "letter": "n",
 #       "value": 1
 #     },
 #     {
-#       "letter": "t",
-#       "value": 1
-#     },
-#     {
-#       "letter": "s",
+#       "letter": "k",
 #       "value": 1
 #     }
 #   ],
-#   "counter": 3,
-#   "secretWord": "posts"
+#   "counter": 1,
+#   "secretWord": "spunk",
+#   "gamesWon": 2
 # }
 
 
