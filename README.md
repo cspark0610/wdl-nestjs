@@ -1,4 +1,39 @@
+### DOCUMENTACION
+
 La documentacion de como utilizar la api se encuentra en el archivo documentation.requests.http
+
+### WORDLE - BACKEND - DD3
+
+Requerimientos:
+Se necesitan N servicios que permitan darle interacción a la aplicación WORDLE
+
+1. Tener almacenado un diccionario de palabras
+2. Deberá seleccionar del diccionario una palabra de 5 letras cada 5 minutos y no se
+   deberá repetir la palabra.
+3. Permitirá comparar cada letra entre dos palabras(la que ingresa el usuario y la
+   seleccionada). La palabra del usuario debe contener 5 letras. Se regresarán los siguientes estatus por letra:
+   a. Si la letra ingresada está en el mismo lugar, regresará un 1 y sumará 1 intento al usuario
+   b. Si la letra ingresada está en la palabra pero no en el mismo lugar, regresará la letra con un 2 y sumará 1 intento al usuario
+   c. Si la letra ingresada no se encuentra en la palabra, regresará la letra con un 3 y sumará 1 intento al usuario
+   d. Si acertó en todas las letras, deberá guardar que el usuario acertó la palabra
+4. Un usuario solo tiene 5 intentos para evaluar la palabra
+5. Cada 5 minutos se seleccionará una nueva palabra, no se deberá repetir la palabra
+6. Cada vez que se genera una nueva palabra, el contador de intentos se reinicia a 0
+   para todos los usuarios
+7. Permitirá obtener cuantas partidas a jugado un usuario y cuantas victorias ha tenido
+8. Permitirá obtener los mejores 10 jugadores con su número de victorias
+9. Permitirá obtener las palabras más acertadas
+10. Los servicios de la aplicación deberán estar protegidos\*
+11. Los servicios deberán contar con test\*
+
+\*Bonuses
+Tecnologias recomendadas:
+● NodeJS
+● Typescript
+● Jest
+● PostgreSQL
+Recursos:
+● Diccionario de palabras
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
