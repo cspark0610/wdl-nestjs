@@ -1,8 +1,8 @@
 {
   "name": "nestjs-word",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Challenge wordle-game for DD3 Capital Partners",
+  "author": "Carlos Park",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -44,9 +44,11 @@
     "@nestjs/cli": "^8.0.0",
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
+    "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.13",
     "@types/jest": "27.0.2",
     "@types/node": "^16.0.0",
+    "@types/passport-jwt": "^3.0.6",
     "@types/supertest": "^2.0.11",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
